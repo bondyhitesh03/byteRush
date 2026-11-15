@@ -1,0 +1,31 @@
+ByteRush  -  Learn. Code. Debug. Level Up.
+===========================================
+
+HOW TO START (no typing needed)
+
+  Mac:      double-click  "Start ByteRush.command"
+            (the first time, macOS may say it is from an unidentified developer:
+             right-click the file, choose Open, then click Open.)
+  Windows:  double-click  "Start ByteRush.bat"
+            (if Windows SmartScreen appears: More info, then Run anyway.)
+  Linux:    run  ./start-byterush.sh
+
+A window opens, ByteRush gets ready, and your browser opens by itself.
+Keep that window open while you use ByteRush. Close it to stop.
+
+THE FIRST TIME takes about 2-3 minutes and needs internet. It may offer to install two
+free helpers if you don't have them yet:
+  - Node.js  (runs ByteRush)
+  - Java JDK (only needed to run Java programs)
+  - Python / C and C++ tools (only needed for those languages; you can say no)
+Just say yes. Next time ByteRush opens in a few seconds.
+
+YOUR DATA
+  Your questions, notebook and settings are saved in the folder "ByteRush-Data" in your
+  home folder, so you can safely replace this ByteRush folder with a newer version.
+
+AI FEATURES
+  Open Settings inside ByteRush and paste a free Google Gemini key
+  (get one at https://aistudio.google.com/app/apikey). Running Java and HTML & CSS work without a key.
+
+Made by Hitesh.

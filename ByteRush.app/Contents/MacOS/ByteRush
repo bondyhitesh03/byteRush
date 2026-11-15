@@ -1,0 +1,10 @@
+#!/bin/bash
+# ByteRush.app: starts ByteRush silently in the background and opens the browser. No Terminal window.
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
+HERE="$(cd "$(dirname "$0")" && pwd)"
+ROOT="$(cd "$HERE/../../.." && pwd)"                       # the app sits inside the ByteRush folder
+[ -f "$ROOT/launcher/background.mjs" ] || ROOT="$(cat "$HERE/../Resources/root.txt" 2>/dev/null)"   # or was moved: use the saved folder
+fallback() { open -a Terminal "$ROOT/Start ByteRush.command"; exit 0; }   # first run / Node missing: use the visible installer
+[ -f "$ROOT/launcher/background.mjs" ] && command -v node >/dev/null 2>&1 || fallback
+node "$ROOT/launcher/background.mjs" >/dev/null 2>&1
+[ $? -eq 0 ] || fallback

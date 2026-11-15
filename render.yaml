@@ -1,0 +1,8 @@
+# Render Blueprint: Dashboard -> New -> Blueprint -> pick your GitHub repo.
+services:
+  - type: web
+    name: byterush
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    autoDeploy: true
