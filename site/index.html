@@ -28,10 +28,14 @@
   <nav aria-label="Main">
     <a href="#playground">Features</a>
     <a href="#languages">Languages</a>
+    <a href="#demo">Demo</a>
     <a href="#download">Download</a>
     <a href="#install">Install</a>
   </nav>
-  <a class="btn btn-small" data-magnetic data-dl="primary" href="#download"><span>Download</span></a>
+  <div class="nav-end">
+    <button class="sound-toggle mono" type="button" aria-pressed="false" aria-label="Turn sound on"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-label">sound off</span></button>
+    <a class="btn btn-small" data-magnetic data-dl="primary" href="#download"><span>Download</span></a>
+  </div>
 </header>
 
 <!-- Where you are on the page, shown as a call stack -->
@@ -46,6 +50,7 @@
     <li><a href="#progress" data-stack="progress">levelUp()</a></li>
     <li><a href="#offline" data-stack="offline">offline()</a></li>
     <li><a href="#languages" data-stack="languages">lang()</a></li>
+    <li><a href="#demo" data-stack="demo">demo()</a></li>
     <li><a href="#download" data-stack="download">install()</a></li>
   </ol>
 </aside>
@@ -102,7 +107,7 @@
   </section>
 
   <!-- 2. ERRORS + ERROR COACH -->
-  <section class="chapter ch-coach" id="coach" data-scene="shatter" data-scene-x="-5" data-scene-scale="0.75" data-ember="1">
+  <section class="chapter ch-coach" id="coach" data-scene="shatter" data-scene-x="-6.6" data-scene-y="2.2" data-scene-scale="0.55" data-ember="1">
     <div class="ch-head ch-head-right">
       <p class="prompt mono" data-type>$ javac Main.java</p>
       <h2 data-split>Red lines become lessons.</h2>
@@ -127,10 +132,17 @@
         <li><b>The fix</b><span>Only when you ask for it</span></li>
       </ol>
     </div>
+    <div class="coach-quote" data-reveal>
+      <p class="mono dim">What the Error Coach said about this exact program</p>
+      <blockquote>“Take a close look at the line where <code>total</code> is created and given a starting value of 0.”</blockquote>
+      <blockquote>“Check the very end of line 4. Is something missing that every other similar line has?”</blockquote>
+    </div>
     <div class="duo">
       <figure class="shot" data-zoom><img src="media/playground-crash.webp" alt="A runtime crash: ArrayIndexOutOfBoundsException, index 3 out of bounds for length 3, with the Explain this error button" loading="lazy"><figcaption>Crashes show the output up to the failure, the exact exception, and an <i>Explain this error</i> button.</figcaption></figure>
-      <figure class="shot slot" data-optional-media="media/coach.mp4" data-poster="media/coach-poster.jpg">
-        <div class="slot-empty"><p class="mono">recording on its way</p><p>The Error Coach walking through explanation, hint, stronger hint and fix. It uses the AI, so it needs internet and a free Gemini key.</p></div>
+      <figure class="frame frame-video coach-video">
+        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span class="mono">ByteRush · Error Coach</span></div>
+        <video class="feature-video" src="media/coach.mp4" poster="media/coach-poster.jpg" muted loop playsinline preload="metadata" aria-label="Recording: pressing Explain this error, then Give me a hint, Stronger hint and Reveal the fix. The explanation and hints are real Gemini answers."></video>
+        <button class="vid-toggle mono" type="button" aria-label="Pause video">pause</button>
       </figure>
     </div>
   </section>
@@ -145,7 +157,7 @@
     <div class="viewfinder" data-tilt>
       <span class="vf-corner tl"></span><span class="vf-corner tr"></span><span class="vf-corner bl"></span><span class="vf-corner br"></span>
       <div class="vf-scan" aria-hidden="true"></div>
-      <figure class="shot" data-zoom><img src="media/questions.webp" alt="The Questions screen with a question typed in, the Upload a photo of the question button, and Get solution" loading="lazy"></figure>
+      <figure class="shot" data-zoom><img src="media/photo-read.webp" alt="A photo of a Pascal's triangle worksheet question, read into the question box, with the solution appearing below" loading="lazy"></figure>
     </div>
     <ol class="flow mono">
       <li><span>upload, paste or drop</span></li>
@@ -153,9 +165,13 @@
       <li><span>solve in your language</span></li>
       <li><span>verify with tests</span></li>
     </ol>
-    <figure class="shot slot slot-wide" data-optional-media="media/photo.mp4" data-poster="media/photo-poster.jpg">
-      <div class="slot-empty"><p class="mono">recording on its way</p><p>A photo turning into a verified solution. Reading photos uses the AI, so it needs internet and a free Gemini key.</p></div>
-    </figure>
+    <div class="stage stage-wide" data-tilt>
+      <figure class="frame frame-video">
+        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span class="mono">ByteRush · Questions</span></div>
+        <video class="feature-video" src="media/photo.mp4" poster="media/photo-poster.jpg" muted loop playsinline preload="metadata" aria-label="Recording: uploading a photo of a worksheet question about Pascal's triangle. ByteRush reads it into text, then writes a solution checked against 5 tests."></video>
+        <button class="vid-toggle mono" type="button" aria-label="Pause video">pause</button>
+      </figure>
+    </div>
   </section>
 
   <!-- 4. PRACTICE & GRADING -->
@@ -169,20 +185,24 @@
       <svg viewBox="0 0 200 200" aria-hidden="true">
         <circle class="track" cx="100" cy="100" r="84"/>
         <circle class="seg seg-a" cx="100" cy="100" r="84" pathLength="100" style="--len:70;--off:0"/>
-        <circle class="seg seg-b" cx="100" cy="100" r="84" pathLength="100" style="--len:15;--off:70"/>
-        <circle class="seg seg-c" cx="100" cy="100" r="84" pathLength="100" style="--len:15;--off:85"/>
+        <circle class="seg seg-b" cx="100" cy="100" r="84" pathLength="100" style="--len:14;--off:70"/>
+        <circle class="seg seg-c" cx="100" cy="100" r="84" pathLength="100" style="--len:14;--off:84"/>
       </svg>
-      <div class="score-total"><span class="num" data-count="100">0</span><span class="mono">points</span></div>
+      <div class="score-total"><span class="num" data-count="98">0</span><span class="mono">out of 100</span></div>
       <dl class="score-parts">
-        <div><dt><span class="sw sw-a"></span>Correctness</dt><dd><span data-count="70">0</span> points from hidden tests passed</dd></div>
-        <div><dt><span class="sw sw-b"></span>Efficiency</dt><dd><span data-count="15">0</span> points, on request</dd></div>
-        <div><dt><span class="sw sw-c"></span>Code quality</dt><dd><span data-count="15">0</span> points, on request</dd></div>
+        <div><dt><span class="sw sw-a"></span>Correctness</dt><dd><span data-count="70">0</span> of 70, all 5 hidden tests passed</dd></div>
+        <div><dt><span class="sw sw-b"></span>Efficiency</dt><dd><span data-count="14">0</span> of 15, “Excellent”, O(n²) time</dd></div>
+        <div><dt><span class="sw sw-c"></span>Code quality</dt><dd><span data-count="14">0</span> of 15, “clean and well-structured”</dd></div>
       </dl>
     </div>
-    <p class="note">Efficiency and code quality are rated by the AI in one request and scale with the share of tests you passed.</p>
-    <figure class="shot slot slot-wide" data-optional-media="media/grading.mp4" data-poster="media/grading-poster.jpg">
-      <div class="slot-empty"><p class="mono">recording on its way</p><p>Submitting a solution and watching the hidden tests and score come in. Practice problems are created by the AI, so this one is recorded with a Gemini key.</p></div>
-    </figure>
+    <p class="note">This is a real submission for the Pascal's triangle question above. Correctness comes from the hidden tests; efficiency and code quality are rated by the AI in one request and scale with the share of tests passed.</p>
+    <div class="stage stage-wide" data-tilt>
+      <figure class="frame frame-video">
+        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span class="mono">ByteRush · Practice</span></div>
+        <video class="feature-video" src="media/grading.mp4" poster="media/grading-poster.jpg" muted loop playsinline preload="metadata" aria-label="Recording: typing a solution, pressing Submit, all 5 tests passing for 70 of 70, then adding efficiency and code quality for a final 98 out of 100"></video>
+        <button class="vid-toggle mono" type="button" aria-label="Pause video">pause</button>
+      </figure>
+    </div>
   </section>
 
   <!-- 5. NOTEBOOK & NOTES -->
@@ -286,6 +306,24 @@
     </ol>
   </section>
 
+  <!-- LIVE DEMO -->
+  <section class="chapter ch-demo" id="demo" data-scene="glyph:>_" data-scene-x="5.6" data-scene-y="3" data-scene-scale="0.45">
+    <div class="ch-head">
+      <p class="prompt mono" data-type>$ byterush --try</p>
+      <h2 data-split>Try it right here.</h2>
+      <p class="lede" data-reveal>This is the real ByteRush, running on a small free server. It's slower than the app, and it can take up to a minute to wake up the first time. Add your own free Gemini key in its Settings to try the AI features.</p>
+    </div>
+    <div class="demo-frame" data-demo>
+      <div class="frame-bar"><i></i><i></i><i></i><span class="mono">byterush.onrender.com</span><a class="demo-newtab mono" href="https://byterush.onrender.com" target="_blank" rel="noopener">open in a new tab</a></div>
+      <div class="demo-body">
+        <div class="demo-start">
+          <button class="btn" type="button" data-magnetic data-demo-start><span>Start the live demo</span></button>
+          <p class="mono dim demo-status" aria-live="polite">The server sleeps when nobody is using it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- DOWNLOAD -->
   <section class="chapter ch-download" id="download" data-scene="funnel" data-scene-x="5.8" data-scene-y="2.4" data-scene-scale="0.6">
     <div class="ch-head">
@@ -337,8 +375,8 @@
     </div>
     <div class="demo">
       <h3>Just want a quick look?</h3>
-      <p>Try the online demo in your browser. It's slower than the app because it runs on a small free server, and it may take up to a minute to wake up.</p>
-      <a class="link-quiet" href="https://byterush.onrender.com" target="_blank" rel="noopener">Open the online demo</a>
+      <p>Try ByteRush in your browser first. It's slower than the app because it runs on a small free server, and it may take up to a minute to wake up.</p>
+      <a class="link-quiet" href="#demo">Try the live demo on this page</a>
     </div>
   </section>
 

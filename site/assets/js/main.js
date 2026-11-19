@@ -1,4 +1,5 @@
 import { createUniverse } from './universe.js';
+import { sfx } from './sound.js';
 
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const COARSE = matchMedia('(pointer: coarse)').matches;
@@ -87,7 +88,7 @@ function typeOut(el) {
   const speed = Number(el.dataset.typeSpeed || 24);
   el.textContent = ''; el.classList.add('typing');
   let i = 0;
-  const tick = () => { el.textContent = text.slice(0, ++i); if (i < text.length) setTimeout(tick, speed + Math.random() * speed * .6); else setTimeout(() => el.classList.remove('typing'), 900); };
+  const tick = () => { el.textContent = text.slice(0, ++i); sfx.key(); if (i < text.length) setTimeout(tick, speed + Math.random() * speed * .6); else setTimeout(() => el.classList.remove('typing'), 900); };
   setTimeout(tick, 250);
 }
 function countUp(el) {
@@ -105,11 +106,15 @@ const revealIO = new IntersectionObserver((entries) => {
     if (!e.isIntersecting) continue;
     const el = e.target; el.classList.add('in'); revealIO.unobserve(el);
     if (el.hasAttribute('data-type')) typeOut(el);
+    if (el.matches('.badges')) setTimeout(() => sfx.unlock(), 500);
+    if (el.matches('.score')) setTimeout(() => sfx.success(), 1700);
+    if (el.matches('.err-print')) sfx.error();
+    if (el.matches('.run-log')) setTimeout(() => sfx.success(), 1500);
     if (el.hasAttribute('data-count')) countUp(el);
     $$('[data-count]', el).forEach(countUp);
   }
 }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
-$$('[data-split], [data-reveal], [data-type], [data-count], .ladder, .score, .filing, .xp, .badges, .why li').forEach((el) => revealIO.observe(el));
+$$('[data-split], [data-reveal], [data-type], [data-count], .ladder, .score, .filing, .xp, .badges, .why li, .err-print, .run-log').forEach((el) => revealIO.observe(el));
 // the hero headline assembles on load
 requestAnimationFrame(() => { $('.hero-title').classList.add('in'); $$('.hero [data-reveal]').forEach((el) => el.classList.add('in')); });
 setTimeout(() => document.body.classList.remove('is-loading'), 3500);
@@ -133,6 +138,7 @@ logoImg.onerror = () => startUniverse(null);
 logoImg.src = 'logo-mark.png';
 
 let currentScene = $('.hero');
+let lastSceneName = '';
 function applyScene(sec) {
   currentScene = sec;
   if (!universe || !sec) return;
@@ -140,6 +146,8 @@ function applyScene(sec) {
   let name = d.scene || 'field';
   if (sec.id === 'languages') name = 'glyph:' + ($('.langs [aria-selected="true"]')?.dataset.glyph || '{ }');
   const small = SMALL();
+  if (lastSceneName && name !== lastSceneName) sfx.whoosh();
+  lastSceneName = name;
   universe.setShape(name, {
     x: small ? 0 : Number(d.sceneX || 0),
     y: small ? (sec.classList.contains('hero') ? 1.6 : 0) : Number(d.sceneY || 0),
@@ -165,7 +173,14 @@ addEventListener('pointermove', (e) => {
 document.addEventListener('pointerleave', () => { universe?.clearPointer(); cursor.classList.remove('on'); });
 addEventListener('pointerdown', () => cursor.classList.add('down'));
 addEventListener('pointerup', () => cursor.classList.remove('down'));
-document.addEventListener('pointerover', (e) => cursor.classList.toggle('hover', Boolean(e.target.closest('a, button, [data-zoom], input[type=range]'))));
+let hoverEl = null;
+document.addEventListener('pointerover', (e) => {
+  const t = e.target.closest('a, button, [data-zoom], input[type=range]');
+  cursor.classList.toggle('hover', Boolean(t));
+  if (t && t !== hoverEl) sfx.hover();
+  hoverEl = t;
+});
+document.addEventListener('click', (e) => { if (e.target.closest('a, button, [data-zoom]') && !e.target.closest('.sound-toggle')) sfx.click(); });
 function cursorLoop() { cx += (tx - cx) * .22; cy += (ty - cy) * .22; cursor.style.transform = `translate(${cx}px, ${cy}px)`; requestAnimationFrame(cursorLoop); }
 if (!COARSE && !REDUCED) cursorLoop();
 
@@ -277,7 +292,7 @@ for (const fig of $$('[data-zoom]')) {
   fig.setAttribute('tabindex', '0'); fig.setAttribute('role', 'button');
   const img = $('img', fig);
   fig.setAttribute('aria-label', `Enlarge screenshot: ${img.alt}`);
-  const open = () => { lbImg.src = img.currentSrc || img.src; lbImg.alt = img.alt; lb.showModal(); };
+  const open = () => { lbImg.src = img.currentSrc || img.src; lbImg.alt = img.alt; lb.showModal(); sfx.pop(); };
   fig.addEventListener('click', open);
   fig.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
 }
@@ -292,6 +307,7 @@ function pickLang(btn, focus = false) {
   const next = new Image(); next.src = btn.dataset.shot;
   const swap = () => { langImg.src = btn.dataset.shot; langImg.alt = btn.dataset.alt; langFig.setAttribute('aria-label', `Enlarge screenshot: ${btn.dataset.alt}`); requestAnimationFrame(() => langFig.classList.remove('swap')); };
   next.complete ? setTimeout(swap, 180) : (next.onload = swap);
+  sfx.glitch();
   if (currentScene?.id === 'languages') { applyScene(currentScene); if (!REDUCED) universe?.burst(); }
 }
 langTabs.forEach((b, i) => {
@@ -302,3 +318,37 @@ langTabs.forEach((b, i) => {
     if (d) { e.preventDefault(); pickLang(langTabs[(i + d + langTabs.length) % langTabs.length], true); }
   });
 });
+
+/* ---------------- sound toggle ---------------- */
+const soundBtn = $('.sound-toggle');
+function showSound(onNow) {
+  soundBtn.setAttribute('aria-pressed', onNow); soundBtn.setAttribute('aria-label', onNow ? 'Turn sound off' : 'Turn sound on');
+  $('.sound-label', soundBtn).textContent = onNow ? 'sound on' : 'sound off';
+}
+soundBtn.addEventListener('click', async () => { await sfx.set(!sfx.on); showSound(sfx.on); });
+// Browsers only allow sound after a click or key press, so a remembered "on" starts with the visitor's first interaction.
+if (sfx.wanted()) {
+  const resume = async () => { removeEventListener('pointerdown', resume); removeEventListener('keydown', resume); if (!sfx.on) { await sfx.set(true); showSound(sfx.on); } };
+  addEventListener('pointerdown', resume); addEventListener('keydown', resume);
+}
+
+/* ---------------- live demo ---------------- */
+const DEMO = 'https://byterush.onrender.com';
+for (const box of $$('[data-demo]')) {
+  const body = $('.demo-body', box), status = $('.demo-status', box), start = $('[data-demo-start]', box);
+  start.addEventListener('click', () => {
+    if (body.querySelector('iframe')) return;
+    body.classList.add('loading'); sfx.boot();
+    const t0 = Date.now();
+    const timer = setInterval(() => {
+      const s = Math.round((Date.now() - t0) / 1000);
+      status.textContent = s < 50 ? `Waking up the server… ${s}s` : `Almost there… ${s}s. Free servers can be slow to wake.`;
+      if (s > 120) { clearInterval(timer); status.innerHTML = 'The server is taking too long. <a class="link-quiet" href="' + DEMO + '" target="_blank" rel="noopener">Open it in a new tab</a> instead.'; }
+    }, 1000);
+    const f = document.createElement('iframe');
+    f.src = DEMO; f.title = 'ByteRush live demo'; f.loading = 'eager';
+    f.allow = 'clipboard-read; clipboard-write';
+    f.addEventListener('load', () => { clearInterval(timer); body.classList.remove('loading'); body.classList.add('ready'); sfx.success(); });
+    body.prepend(f);
+  });
+}

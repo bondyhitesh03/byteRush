@@ -20,7 +20,7 @@ COPY --from=web /app/frontend/dist frontend/dist
 # The server stays root so that visitors' Java code can be run as the unprivileged user "nobody"
 # (it can't read the server's files or environment). Nothing secret is needed for the free setup.
 RUN mkdir -p backend/data && chmod 700 backend/data
-ENV PUBLIC_MODE=true RUNNER=local HOST=0.0.0.0 PORT=10000 TRUST_PROXY=1 \
+ENV PUBLIC_MODE=true RUNNER=local HOST=0.0.0.0 PORT=10000 TRUST_PROXY=1 FRAME_ANCESTORS=https://bondyhitesh03.github.io \
     MAX_CONCURRENT_RUNS=1 MAX_CONCURRENT_GRADES=1 RUN_TIMEOUT_MS=15000 COMPILE_TIMEOUT_MS=45000
 EXPOSE 10000
 CMD ["node", "backend/server.js"]

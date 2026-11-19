@@ -27,7 +27,11 @@ if (process.env.TRUST_PROXY) app.set('trust proxy', Number(process.env.TRUST_PRO
 const origins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173').split(',').map((s) => s.trim()).filter(Boolean);
 app.use(cors({ origin: origins }));
 app.use((_req, res, next) => {
-  res.setHeader('X-Content-Type-Options', 'nosniff'); res.setHeader('Referrer-Policy', 'no-referrer'); res.setHeader('X-Frame-Options', 'DENY'); next();
+  res.setHeader('X-Content-Type-Options', 'nosniff'); res.setHeader('Referrer-Policy', 'no-referrer');
+  // FRAME_ANCESTORS lets the download website show the online demo in a frame; everywhere else framing is blocked.
+  if (process.env.FRAME_ANCESTORS) res.setHeader('Content-Security-Policy', `frame-ancestors 'self' ${process.env.FRAME_ANCESTORS}`);
+  else res.setHeader('X-Frame-Options', 'DENY');
+  next();
 });
 app.use('/api/question/read-image', express.json({ limit: '6mb' })); // photos are bigger than normal requests
 app.use(express.json({ limit: '100kb' }));
