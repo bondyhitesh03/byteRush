@@ -135,7 +135,7 @@ const revealIO = new IntersectionObserver((entries) => {
     $$('[data-count]', el).forEach(countUp);
   }
 }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
-if (!REDUCED) $$('.shot:not(.lang-shot), .compare, .demo-frame, .pg-body, .tour-frame').forEach((el) => el.classList.add('reveal-media'));
+if (!REDUCED) $$('.shot:not(.lang-shot), .compare, .demo-frame, .tour-frame').forEach((el) => el.classList.add('reveal-media'));
 $$('[data-split], [data-reveal], [data-type], [data-count], .ladder, .score, .filing, .xp, .badges, .why li, .err-print, .run-log, .reveal-media').forEach((el) => revealIO.observe(el));
 // the hero headline assembles on load
 requestAnimationFrame(() => { $('.hero-title').classList.add('in'); $$('.hero [data-reveal]').forEach((el) => el.classList.add('in')); });
@@ -177,8 +177,12 @@ function applyScene(sec) {
     ember: Number(d.ember || 0),
   });
 }
+// Scenes can be nested (a calmer scene for part of a section): the innermost one in the middle of the screen wins.
+const activeScenes = new Set();
 const sceneIO = new IntersectionObserver((entries) => {
-  for (const e of entries) if (e.isIntersecting) applyScene(e.target);
+  for (const e of entries) { if (e.isIntersecting) activeScenes.add(e.target); else activeScenes.delete(e.target); }
+  const pick = [...activeScenes].sort((a, b) => (a.contains(b) ? 1 : b.contains(a) ? -1 : 0))[0];
+  if (pick && pick !== currentScene) applyScene(pick);
 }, { rootMargin: '-45% 0px -45% 0px' });
 $$('[data-scene]').forEach((s) => sceneIO.observe(s));
 
@@ -393,79 +397,4 @@ for (const tour of $$('[data-tour]')) {
   $('[data-fullscreen]', tour)?.addEventListener('click', () => {
     if (v.requestFullscreen) v.requestFullscreen().catch(() => {}); else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen();
   });
-}
-
-/* ---------------- in-page JavaScript playground (really runs, in a sandboxed worker) ---------------- */
-const PG_CODE = `// Count how often each word appears
-const text = "practice makes progress and progress makes practice fun";
-const counts = {};
-
-for (const word of text.split(" ")) {
-  counts[word] = (counts[word] || 0) + 1;
-}
-
-const top = Object.entries(counts)
-  .sort((a, b) => b[1] - a[1])
-  .slice(0, 3);
-
-console.log("Most common words:");
-for (const [word, n] of top) console.log(\`  \${word}: \${n}\`);
-`;
-const PG_BUG = ['counts[word] = (counts[word] || 0) + 1;', 'counts[word] = (count[word] || 0) + 1;'];
-const WORKER_SRC = `
-for (const k of ['fetch', 'XMLHttpRequest', 'WebSocket', 'importScripts', 'EventSource', 'indexedDB', 'caches']) { try { self[k] = undefined; } catch (e) {} }
-const fmt = (v) => { if (typeof v === 'string') return v; try { return JSON.stringify(v); } catch (e) { return String(v); } };
-const send = (level, args) => postMessage({ level, text: args.map(fmt).join(' ') });
-self.console = { log: (...a) => send('log', a), info: (...a) => send('log', a), warn: (...a) => send('warn', a), error: (...a) => send('error', a) };
-self.onmessage = (e) => {
-  try { (0, eval)(e.data + '\\n//# sourceURL=main.js'); postMessage({ done: true }); }
-  catch (err) { const m = /main\\.js:(\\d+)/.exec(String(err && err.stack)); postMessage({ error: { name: err && err.name, message: String(err && err.message), line: m ? Number(m[1]) : null } }); }
-};`;
-const EXPLAIN = {
-  ReferenceError: 'You used a name that doesn\u2019t exist. Check its spelling against the place where it was created.',
-  TypeError: 'A value isn\u2019t what the code expected, for example calling something that isn\u2019t a function, or reading a property of undefined.',
-  SyntaxError: 'The code isn\u2019t valid JavaScript yet. Look for a missing bracket, quote or comma.',
-  RangeError: 'A number or size is out of range. Endless recursion is a common cause.',
-};
-for (const pg of $$('[data-pg]')) {
-  const ta = $('textarea', pg), gutter = $('.pg-gutter', pg), hl = $('.pg-hl', pg), out = $('.pg-out', pg), explain = $('.pg-explain', pg);
-  const LH = 22;
-  ta.value = PG_CODE;
-  const lines = () => { const n = ta.value.split('\n').length; gutter.textContent = Array.from({ length: n }, (_, i) => i + 1).join('\n'); };
-  const sync = () => { gutter.scrollTop = ta.scrollTop; if (hl.dataset.line) hl.style.top = (16 + (Number(hl.dataset.line) - 1) * LH - ta.scrollTop) + 'px'; };
-  const mark = (line) => { if (line) { hl.dataset.line = line; hl.classList.add('on'); sync(); } else { delete hl.dataset.line; hl.classList.remove('on'); } };
-  lines();
-  ta.addEventListener('input', () => { lines(); mark(null); });
-  ta.addEventListener('scroll', sync);
-  ta.addEventListener('keydown', (e) => {
-    if (e.key === 'Tab' && !e.shiftKey) { e.preventDefault(); const a = ta.selectionStart; ta.setRangeText('  ', a, ta.selectionEnd, 'end'); lines(); }
-    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); run(); }
-  });
-  const line = (text, cls) => { const d = document.createElement('div'); if (cls) d.className = cls; d.textContent = text; out.append(d); };
-  let worker = null, timer = 0;
-  function run() {
-    if (worker) worker.terminate();
-    out.textContent = ''; explain.hidden = true; mark(null);
-    const t0 = performance.now(); let printed = false;
-    worker = new Worker(URL.createObjectURL(new Blob([WORKER_SRC], { type: 'text/javascript' })));
-    const finish = () => { clearTimeout(timer); worker.terminate(); worker = null; };
-    worker.onmessage = ({ data }) => {
-      if (data.level) { printed = true; line(data.text, data.level === 'error' ? 'err' : data.level === 'warn' ? 'warn' : ''); return; }
-      if (data.done) { if (!printed) line('(no output)', 'dim'); line(`✓ Ran in ${Math.max(1, Math.round(performance.now() - t0))} ms`, 'ok'); sfx.success(); finish(); return; }
-      if (data.error) {
-        const { name, message, line: ln } = data.error;
-        line(`${name}: ${message}${ln ? ` (line ${ln})` : ''}`, 'err'); mark(ln);
-        explain.innerHTML = `<b>${name}${ln ? ` on line ${ln}` : ''}.</b> `; explain.append(EXPLAIN[name] || 'Something went wrong while the code ran. Read the message above, starting from the line it points to.');
-        explain.hidden = false; sfx.error(); finish();
-      }
-    };
-    timer = setTimeout(() => { finish(); line('Stopped after 3 seconds. This usually means a loop that never ends.', 'err'); sfx.error(); }, 3000);
-    worker.postMessage(ta.value);
-  }
-  $('[data-pg-run]', pg).addEventListener('click', run);
-  $('[data-pg-bug]', pg).addEventListener('click', () => {
-    if (!ta.value.includes(PG_BUG[0])) ta.value = PG_CODE;
-    ta.value = ta.value.replace(PG_BUG[0], PG_BUG[1]); lines(); run();
-  });
-  $('[data-pg-reset]', pg).addEventListener('click', () => { ta.value = PG_CODE; lines(); mark(null); out.innerHTML = '<span class="dim">Press Run (or Ctrl/⌘ + Enter) to see the output here.</span>'; explain.hidden = true; });
 }
