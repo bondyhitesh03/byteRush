@@ -1,5 +1,5 @@
-import { createUniverse } from './universe.js';
-import { sfx } from './sound.js';
+import { createUniverse } from './universe.js?v=__V__';
+import { sfx } from './sound.js?v=__V__';
 
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const COARSE = matchMedia('(pointer: coarse)').matches;
