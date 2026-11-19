@@ -407,3 +407,6 @@ h3 { font: 600 clamp(24px, 2.6vw, 38px)/1.1 var(--display); letter-spacing: -.03
 @keyframes wake { from { background-position: -100% 0; } to { background-position: 200% 0; } }
 @media (max-width: 900px) { .demo-body { height: 78vh; min-height: 460px; } }
 @media (max-width: 900px) { .demo-frame .frame-bar > span { display: none; } }
+
+.stack { transition: opacity .4s var(--ease); }
+body.demo-active .stack { opacity: 0; pointer-events: none; }

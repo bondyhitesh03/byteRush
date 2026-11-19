@@ -228,6 +228,7 @@ const sectionIO = new IntersectionObserver((entries) => {
     if (!e.isIntersecting) continue;
     const id = e.target.id || 'top';
     stackLinks.forEach((a) => a.classList.toggle('on', a.dataset.stack === id));
+    document.body.classList.toggle('demo-active', id === 'demo'); // the rail would sit on top of the live demo
     const group = ['playground', 'coach', 'photo', 'grading', 'notebook', 'progress', 'offline'].includes(id) ? 'playground' : id === 'why' ? '' : id;
     navLinks.forEach((a) => a.classList.toggle('on', a.getAttribute('href') === '#' + group));
   }
