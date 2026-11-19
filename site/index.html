@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ByteRush · Learn. Code. Debug. Level Up.</title>
+<meta name="description" content="ByteRush is a free coding-practice app that runs on your own computer. Java, Python, C, C++ and JavaScript, fully offline.">
+<link rel="icon" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  :root { --bg:#0b0e14; --surface:#11151c; --line:#232a36; --text:#e7ecf3; --muted:#8892a2; --accent:#7c8cff; --accent-fg:#0b0e14; --good:#3fb950; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif; }
+  a { color:var(--accent); }
+  .wrap { max-width:1040px; margin:0 auto; padding:0 24px; }
+  header { display:flex; align-items:center; justify-content:space-between; padding:20px 0; }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size:20px; color:var(--text); text-decoration:none; }
+  .brand img { width:34px; height:34px; }
+  nav a { color:var(--muted); text-decoration:none; margin-left:22px; font-size:15px; }
+  nav a:hover { color:var(--text); }
+  .hero { text-align:center; padding:64px 0 48px; background:radial-gradient(600px 300px at 50% 0%, rgba(124,140,255,.16), transparent 70%); }
+  .hero img { width:96px; height:96px; }
+  h1 { font-size:clamp(34px,6vw,56px); line-height:1.1; margin:18px 0 12px; letter-spacing:-.02em; }
+  .tag { color:var(--muted); font-size:19px; max-width:620px; margin:0 auto 32px; }
+  .btn { display:inline-flex; align-items:center; gap:10px; background:var(--accent); color:var(--accent-fg); font-weight:700; font-size:17px;
+         padding:15px 28px; border-radius:12px; text-decoration:none; transition:transform .1s, filter .1s; }
+  .btn:hover { filter:brightness(1.08); transform:translateY(-1px); }
+  .alts { margin-top:16px; color:var(--muted); font-size:14px; }
+  .alts a { margin:0 8px; }
+  .meta { margin-top:10px; color:var(--muted); font-size:13px; }
+  .pill { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:4px 12px; font-size:13px; color:var(--muted); margin-bottom:6px; }
+  section { padding:56px 0; border-top:1px solid var(--line); }
+  h2 { font-size:28px; margin:0 0 8px; letter-spacing:-.01em; }
+  .sub { color:var(--muted); margin:0 0 28px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:16px; }
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:20px; }
+  .card b { display:block; margin-bottom:6px; font-size:17px; }
+  .card p { margin:0; color:var(--muted); font-size:15px; }
+  .langs { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:28px; }
+  .langs span { background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:8px 14px; font-size:15px; }
+  .tabs { display:flex; gap:8px; margin-bottom:16px; }
+  .tabs button { background:var(--surface); color:var(--muted); border:1px solid var(--line); border-radius:10px; padding:9px 18px; font:inherit; cursor:pointer; }
+  .tabs button.on { color:var(--text); border-color:var(--accent); }
+  ol { margin:0; padding-left:22px; } ol li { margin:8px 0; }
+  .note { background:#1a2133; border:1px solid var(--line); border-radius:12px; padding:14px 18px; color:var(--muted); font-size:15px; margin-top:18px; }
+  kbd, code { background:#1b2230; border:1px solid var(--line); border-radius:6px; padding:1px 6px; font-size:14px; color:var(--text); }
+  .dl3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .dl3 a.card { text-decoration:none; color:var(--text); transition:border-color .15s; }
+  .dl3 a.card:hover { border-color:var(--accent); }
+  .dl3 small { color:var(--muted); }
+  footer { border-top:1px solid var(--line); padding:28px 0 40px; color:var(--muted); font-size:14px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="#"><img src="logo-mark.png" alt="">ByteRush</a>
+    <nav><a href="#features">Features</a><a href="#install">Install</a><a href="#download">Download</a></nav>
+  </header>
+</div>
+
+<div class="hero">
+  <div class="wrap">
+    <img src="logo-mark.png" alt="ByteRush logo">
+    <h1>Learn. Code. Debug. Level&nbsp;Up.</h1>
+    <p class="tag">A free coding-practice app that runs on your own computer. Write, run and grade code instantly, even without internet.</p>
+    <a id="mainBtn" class="btn" href="#download">⬇ Download ByteRush</a>
+    <div class="alts" id="alts"></div>
+    <div class="meta" id="meta">Free · Mac &amp; Windows · Works offline</div>
+    <div class="langs"><span>☕ Java</span><span>🐍 Python</span><span>🔵 C</span><span>🟣 C++</span><span>🟨 JavaScript</span><span>🌐 HTML &amp; CSS</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section id="features">
+    <h2>Everything you need to practice</h2>
+    <p class="sub">Your code runs on your computer, so results come back in a blink.</p>
+    <div class="grid">
+      <div class="card"><b>⚡ Instant playground</b><p>Write code, type input and run it. Compile errors are marked on the right line, and crashes are explained.</p></div>
+      <div class="card"><b>🧠 Error Coach</b><p>Stuck on an error? Get an explanation, then a hint, a stronger hint, and only then the fix.</p></div>
+      <div class="card"><b>📸 Questions from a photo</b><p>Snap or paste a question. ByteRush reads it and builds a solution with verified test cases.</p></div>
+      <div class="card"><b>🏁 Practice &amp; grading</b><p>Submit against hidden tests and get a score for correctness, efficiency and code quality.</p></div>
+      <div class="card"><b>📒 Notebook &amp; Notes</b><p>Save your questions as Q1, Q2… in folders, and keep notes with runnable code next to them.</p></div>
+      <div class="card"><b>📈 Progress</b><p>XP, streaks, a skill tree and achievements that grow with real practice.</p></div>
+    </div>
+    <div class="note">✅ Running code, the notebook, notes and progress all work <b>offline</b>. The AI features (solutions, hints, analysis) need internet and a free Google Gemini key, which you add in Settings.</div>
+  </section>
+
+  <section id="download">
+    <h2>Download</h2>
+    <p class="sub" id="ver">The latest version, free.</p>
+    <div class="dl3">
+      <a class="card" id="dl-mac-arm64" href="#"><b>Mac · Apple Silicon</b><small>M1, M2, M3, M4 and newer · .dmg</small></a>
+      <a class="card" id="dl-mac-x64" href="#"><b>Mac · Intel</b><small>Older Intel Macs · .dmg</small></a>
+      <a class="card" id="dl-win" href="#"><b>⊞ Windows</b><small>Windows 10 and 11 (64-bit) · .exe</small></a>
+    </div>
+    <p class="sub" style="margin-top:18px">Not sure which Mac you have? Open the Apple menu → <b>About This Mac</b>. If it says “Chip: Apple M…”, choose Apple Silicon.</p>
+  </section>
+
+  <section id="install">
+    <h2>Install in a minute</h2>
+    <p class="sub">ByteRush is free and not sold through an app store, so your computer asks you to confirm it once.</p>
+    <div class="tabs"><button id="t-mac" class="on">Mac</button><button id="t-win">Windows</button></div>
+    <div id="p-mac">
+      <ol>
+        <li>Open the downloaded <code>ByteRush-mac-….dmg</code> and drag <b>ByteRush</b> into <b>Applications</b>.</li>
+        <li>Open ByteRush from Applications. macOS says it “could not verify” the app. Click <b>Done</b>.</li>
+        <li>Open <b>System Settings → Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b> next to ByteRush, then confirm.</li>
+        <li>That's it. From now on ByteRush opens with a normal double-click.</li>
+      </ol>
+      <div class="note">Python, C and C++ use Apple's free developer tools. If ByteRush says they're missing, open Terminal and run <code>xcode-select --install</code>. Java is already included.</div>
+    </div>
+    <div id="p-win" hidden>
+      <ol>
+        <li>Run the downloaded <code>ByteRush-windows-x64.exe</code>.</li>
+        <li>If Windows shows “Windows protected your PC”, click <b>More info</b> → <b>Run anyway</b>.</li>
+        <li>Follow the installer. ByteRush appears on your Desktop and in the Start menu.</li>
+      </ol>
+      <div class="note">Java is already included. For Python, install it from <a href="https://www.python.org/downloads/">python.org</a> (tick “Add to PATH”). For C and C++, install <a href="https://winlibs.com/">WinLibs (gcc)</a>. Restart ByteRush afterwards.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Just want a quick look?</h2>
+    <p class="sub">Try the online demo in your browser. It's slower than the app because it runs on a small free server, and it may take up to a minute to wake up.</p>
+    <a href="https://byterush.onrender.com" target="_blank" rel="noopener">Open the online demo →</a>
+  </section>
+
+  <footer><span>Made by Hitesh</span><span>Your data stays on your computer, in the <code>ByteRush-Data</code> folder.</span></footer>
+</div>
+
+<script>
+  const REPO = 'bondyhitesh03/byteRush';
+  const BASE = `https://github.com/${REPO}/releases/latest/download/`;
+  const FILES = { macArm: 'ByteRush-mac-arm64.dmg', macX64: 'ByteRush-mac-x64.dmg', win: 'ByteRush-windows-x64.exe' };
+  document.getElementById('dl-mac-arm64').href = BASE + FILES.macArm;
+  document.getElementById('dl-mac-x64').href = BASE + FILES.macX64;
+  document.getElementById('dl-win').href = BASE + FILES.win;
+
+  const ua = navigator.userAgent;
+  const isMac = /Macintosh|Mac OS X/.test(ua), isWin = /Windows/.test(ua);
+  const btn = document.getElementById('mainBtn'), alts = document.getElementById('alts');
+  const setMain = (label, file) => { btn.textContent = '⬇ ' + label; btn.href = BASE + file; };
+  if (isMac) {
+    setMain('Download for Mac', FILES.macArm);
+    alts.innerHTML = `Intel Mac? <a href="${BASE + FILES.macX64}">Download the Intel version</a> · <a href="${BASE + FILES.win}">Windows</a>`;
+    // Chrome and Edge can tell Intel from Apple Silicon; Safari can't, so Apple Silicon (the common case) stays the default.
+    navigator.userAgentData?.getHighEntropyValues?.(['architecture']).then((v) => {
+      if (v.architecture === 'x86') { setMain('Download for Mac (Intel)', FILES.macX64); alts.innerHTML = `Apple Silicon Mac? <a href="${BASE + FILES.macArm}">Download that version</a> · <a href="${BASE + FILES.win}">Windows</a>`; }
+    }).catch(() => {});
+  } else if (isWin) {
+    setMain('Download for Windows', FILES.win);
+    alts.innerHTML = `On a Mac? <a href="${BASE + FILES.macArm}">Apple Silicon</a> · <a href="${BASE + FILES.macX64}">Intel</a>`;
+  } else {
+    alts.innerHTML = `ByteRush is available for <a href="#download">Mac and Windows</a>.`;
+  }
+
+  // Tabs
+  const tab = (which) => {
+    document.getElementById('p-mac').hidden = which !== 'mac'; document.getElementById('p-win').hidden = which !== 'win';
+    document.getElementById('t-mac').classList.toggle('on', which === 'mac'); document.getElementById('t-win').classList.toggle('on', which === 'win');
+  };
+  document.getElementById('t-mac').onclick = () => tab('mac');
+  document.getElementById('t-win').onclick = () => tab('win');
+  if (isWin) tab('win');
+
+  // Show the latest version number (optional: the buttons work without it).
+  fetch(`https://api.github.com/repos/${REPO}/releases/latest`).then((r) => r.ok ? r.json() : null).then((r) => {
+    if (!r || !r.tag_name) return;
+    const date = new Date(r.published_at).toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' });
+    document.getElementById('meta').textContent = `Version ${r.tag_name.replace(/^v/, '')} · ${date} · Free · Works offline`;
+    document.getElementById('ver').textContent = `Version ${r.tag_name.replace(/^v/, '')}, released ${date}. Free.`;
+  }).catch(() => {});
+</script>
+</body>
+</html>

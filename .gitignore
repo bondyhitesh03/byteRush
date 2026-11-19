@@ -5,3 +5,5 @@ backend/data/
 .DS_Store
 *.log
 ByteRush.app/Contents/Resources/root.txt
+desktop/server/
+desktop/jdk/

@@ -3,6 +3,12 @@
 
 (The project folder is still called `algocoach`; that is fine.)
 
+## Desktop app (offline, Mac + Windows)
+`desktop/` wraps ByteRush in its own app window (Electron) with Java bundled, so it runs fully offline.
+GitHub builds it for free: push a tag like `v1.0.0` and `.github/workflows/release.yml` publishes
+`ByteRush-mac-arm64.dmg`, `ByteRush-mac-x64.dmg` and `ByteRush-windows-x64.exe` as a GitHub Release.
+The download website lives in `site/` and is published to GitHub Pages by `.github/workflows/pages.yml`.
+
 ## Just want to use it? (no terminal needed)
 1. Unzip **ByteRush.zip**.
 2. Double-click **Start ByteRush.command** (Mac), **Start ByteRush.bat** (Windows) or run `./start-byterush.sh` (Linux).

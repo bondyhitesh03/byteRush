@@ -1,0 +1,49 @@
+{
+  "name": "byterush-desktop",
+  "productName": "ByteRush",
+  "version": "1.0.0",
+  "description": "Learn. Code. Debug. Level Up. Runs fully on your computer.",
+  "author": "Hitesh",
+  "license": "UNLICENSED",
+  "private": true,
+  "main": "main.cjs",
+  "scripts": {
+    "prepare-server": "node scripts/prepare.mjs",
+    "start": "npm run prepare-server && electron .",
+    "dist": "npm run prepare-server && electron-builder --publish never"
+  },
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.0"
+  },
+  "build": {
+    "appId": "com.hitesh.byterush",
+    "productName": "ByteRush",
+    "directories": { "output": "dist", "buildResources": "build" },
+    "files": ["main.cjs", "server-runner.cjs", "package.json"],
+    "extraResources": [
+      { "from": "server", "to": "server" },
+      { "from": "jdk", "to": "jdk" }
+    ],
+    "afterPack": "scripts/after-pack.cjs",
+    "mac": {
+      "category": "public.app-category.education",
+      "target": ["dmg"],
+      "identity": null,
+      "hardenedRuntime": false,
+      "artifactName": "ByteRush-mac-${arch}.${ext}"
+    },
+    "dmg": { "title": "ByteRush" },
+    "win": {
+      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "artifactName": "ByteRush-windows-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "ByteRush"
+    }
+  }
+}

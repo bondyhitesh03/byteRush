@@ -4,3 +4,7 @@ backend/data
 backend/.env
 .git
 *.zip
+
+desktop
+site
+.github
