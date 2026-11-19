@@ -28,9 +28,9 @@
   <nav aria-label="Main">
     <a href="#playground">Features</a>
     <a href="#languages">Languages</a>
-    <a href="#demo">Demo</a>
+    <a href="#demo">Try it</a>
     <a href="#download">Download</a>
-    <a href="#install">Install</a>
+    <a href="#faq">FAQ</a>
   </nav>
   <div class="nav-end">
     <button class="sound-toggle mono" type="button" aria-pressed="false" aria-label="Turn sound on"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-label">sound off</span></button>
@@ -49,9 +49,12 @@
     <li><a href="#notebook" data-stack="notebook">save()</a></li>
     <li><a href="#progress" data-stack="progress">levelUp()</a></li>
     <li><a href="#offline" data-stack="offline">offline()</a></li>
+    <li><a href="#ai" data-stack="ai">ai()</a></li>
+    <li><a href="#privacy" data-stack="privacy">privacy()</a></li>
     <li><a href="#languages" data-stack="languages">lang()</a></li>
     <li><a href="#demo" data-stack="demo">demo()</a></li>
     <li><a href="#download" data-stack="download">install()</a></li>
+    <li><a href="#faq" data-stack="faq">faq()</a></li>
   </ol>
 </aside>
 
@@ -68,15 +71,38 @@
         <span class="line">Debug. Level Up.</span>
       </h1>
       <div class="hero-foot">
-        <p class="hero-sub" data-reveal>A coding-practice app that runs on your own computer. Write code, run it the moment you press a key, and keep practicing with the Wi-Fi off.</p>
+        <p class="hero-sub" data-reveal>A coding-practice app that runs on your own computer. Write code, press Run, and see the output right beside it. Running code, your notebook and notes keep working with the Wi-Fi off.</p>
         <div class="hero-cta" data-reveal>
           <a class="btn" data-magnetic data-dl="primary" href="#download"><span data-dl-label>Download ByteRush</span></a>
           <a class="link-quiet" href="#playground">See it run</a>
         </div>
-        <p class="hero-meta mono" data-reveal id="hero-meta">Free for Mac and Windows</p>
+        <p class="hero-meta mono" data-reveal><span id="hero-meta">Free for Mac and Windows</span><span class="hero-key">AI features use your own free Gemini key. <a href="#ai">How that works</a></span></p>
       </div>
     </div>
     <a class="scroll-cue mono" href="#playground" aria-label="Scroll to the features"><span class="scroll-line"></span>scroll to run</a>
+  </section>
+
+  <!-- PRODUCT TOUR -->
+  <section class="chapter ch-tour" id="tour" data-scene="field">
+    <div class="ch-head">
+      <p class="prompt mono" data-type>$ byterush --tour</p>
+      <h2 data-split>The whole app in under 90 seconds.</h2>
+      <p class="lede" data-reveal>Real recordings of ByteRush, stitched together: opening it, writing and running code, the Error Coach, a photo question, the notebook and your progress.</p>
+    </div>
+    <div class="tour" data-tour>
+      <figure class="frame frame-video tour-frame">
+        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span class="mono">ByteRush · Tour</span><button class="frame-fs mono" type="button" data-fullscreen>fullscreen</button></div>
+        <video class="tour-video" src="media/tour.mp4" poster="media/tour-poster.jpg" controls muted playsinline preload="none" aria-label="Product tour recorded from the real ByteRush app"></video>
+      </figure>
+      <ol class="tour-chapters" aria-label="Jump to a part of the tour">
+        <li><button type="button" data-t="0">Open ByteRush</button></li>
+        <li><button type="button" data-t="6.6">Write and run code</button></li>
+        <li><button type="button" data-t="20.8">Error Coach</button></li>
+        <li><button type="button" data-t="36.6">Photo question</button></li>
+        <li><button type="button" data-t="52.6">Notebook</button></li>
+        <li><button type="button" data-t="69.4">Progress</button></li>
+      </ol>
+    </div>
   </section>
 
   <!-- 1. PLAYGROUND -->
@@ -104,6 +130,7 @@
       <li><b>Line markers</b><span>Compile errors point at the exact line that broke.</span></li>
       <li><b>Crash notes</b><span>Runtime errors are explained in plain language.</span></li>
     </ul>
+    <a class="next mono" href="#coach"><span class="dim">next</span> debug()</a>
   </section>
 
   <!-- 2. ERRORS + ERROR COACH -->
@@ -145,6 +172,7 @@
         <button class="vid-toggle mono" type="button" aria-label="Pause video">pause</button>
       </figure>
     </div>
+    <a class="next mono" href="#photo"><span class="dim">next</span> read()</a>
   </section>
 
   <!-- 3. QUESTIONS FROM A PHOTO -->
@@ -152,7 +180,7 @@
     <div class="ch-head">
       <p class="prompt mono" data-type>$ byterush read question.jpg</p>
       <h2 data-split>Snap the question. Skip the typing.</h2>
-      <p class="lede" data-reveal>Upload a photo of a question, paste a screenshot, or drop an image into the box. ByteRush reads it into text, writes a solution in your language, and checks it against test cases before showing it to you.</p>
+      <p class="lede" data-reveal>Upload a photo of a question, paste a screenshot, or drop an image into the box. ByteRush reads it into text, writes a solution in your language, and checks it against test cases before showing it to you. The photo is sent to Google's Gemini API to be read; ByteRush doesn't keep it.</p>
     </div>
     <div class="viewfinder" data-tilt>
       <span class="vf-corner tl"></span><span class="vf-corner tr"></span><span class="vf-corner bl"></span><span class="vf-corner br"></span>
@@ -172,6 +200,7 @@
         <button class="vid-toggle mono" type="button" aria-label="Pause video">pause</button>
       </figure>
     </div>
+    <a class="next mono" href="#grading"><span class="dim">next</span> grade()</a>
   </section>
 
   <!-- 4. PRACTICE & GRADING -->
@@ -188,13 +217,14 @@
         <circle class="seg seg-b" cx="100" cy="100" r="84" pathLength="100" style="--len:14;--off:70"/>
         <circle class="seg seg-c" cx="100" cy="100" r="84" pathLength="100" style="--len:14;--off:84"/>
       </svg>
-      <div class="score-total"><span class="num" data-count="98">0</span><span class="mono">out of 100</span></div>
+      <div class="score-total"><span class="num" data-count="98">98</span><span class="mono">out of 100</span></div>
       <dl class="score-parts">
-        <div><dt><span class="sw sw-a"></span>Correctness</dt><dd><span data-count="70">0</span> of 70, all 5 hidden tests passed</dd></div>
-        <div><dt><span class="sw sw-b"></span>Efficiency</dt><dd><span data-count="14">0</span> of 15, “Excellent”, O(n²) time</dd></div>
-        <div><dt><span class="sw sw-c"></span>Code quality</dt><dd><span data-count="14">0</span> of 15, “clean and well-structured”</dd></div>
+        <div><dt><span class="sw sw-a"></span>Correctness</dt><dd><span data-count="70">70</span> of 70: all 5 hidden tests passed</dd></div>
+        <div><dt><span class="sw sw-b"></span>Efficiency</dt><dd><span data-count="14">14</span> of 15: rated “Excellent”, O(n²) time</dd></div>
+        <div><dt><span class="sw sw-c"></span>Code quality</dt><dd><span data-count="14">14</span> of 15: “clean, well-structured”</dd></div>
       </dl>
     </div>
+    <p class="score-sum mono">5 / 5 tests passed  →  70 + 14 + 14 = 98</p>
     <p class="note">This is a real submission for the Pascal's triangle question above. Correctness comes from the hidden tests; efficiency and code quality are rated by the AI in one request and scale with the share of tests passed.</p>
     <div class="stage stage-wide" data-tilt>
       <figure class="frame frame-video">
@@ -203,6 +233,7 @@
         <button class="vid-toggle mono" type="button" aria-label="Pause video">pause</button>
       </figure>
     </div>
+    <a class="next mono" href="#notebook"><span class="dim">next</span> save()</a>
   </section>
 
   <!-- 5. NOTEBOOK & NOTES -->
@@ -233,6 +264,7 @@
       </div>
       <figure class="shot shot-float" data-zoom><img src="media/notes.webp" alt="A note titled Two pointers with Markdown preview, tags arrays and patterns, and a Java template that ran and printed 4 + 6 = 10" loading="lazy"></figure>
     </div>
+    <a class="next mono" href="#progress"><span class="dim">next</span> levelUp()</a>
   </section>
 
   <!-- 6. PROGRESS -->
@@ -243,7 +275,7 @@
       <p class="lede" data-reveal>XP comes only from real practice and is capped per day. Streaks forgive a missed day. Skills grow as you use them, and achievements unlock along the way.</p>
     </div>
     <div class="xp" data-xp>
-      <div class="xp-num"><span data-count="65">0</span><span class="mono">XP earned while recording this page</span></div>
+      <div class="xp-num"><span data-count="65">65</span><span class="mono">XP earned while recording this page</span></div>
       <div class="xp-bar"><i style="--to:.65"></i></div>
     </div>
     <div class="fan" data-fan>
@@ -257,6 +289,7 @@
       <li class="badge" style="--d:.5s">🧭<b>Explorer</b><span>Practice 3 different skills</span></li>
       <li class="badge locked" style="--d:.75s">✨<b>3 Day Streak</b><span>Practice 3 days in a row</span></li>
     </ul>
+    <a class="next mono" href="#offline"><span class="dim">next</span> offline()</a>
   </section>
 
   <!-- 7. OFFLINE -->
@@ -275,17 +308,84 @@
     </div>
   </section>
 
+  <!-- AI KEY -->
+  <section class="chapter ch-ai" id="ai" data-scene="glyph:AI" data-scene-x="5.6" data-scene-y="2.6" data-scene-scale="0.5">
+    <div class="ch-head">
+      <p class="prompt mono" data-type>$ byterush settings --key</p>
+      <h2 data-split>AI features use your own free key.</h2>
+      <p class="lede" data-reveal>ByteRush's AI answers come from Google's Gemini. ByteRush doesn't run an AI server of its own, so each person adds a free Gemini key from Google. Google's free tier has daily limits; if you reach one, ByteRush tells you.</p>
+    </div>
+    <div class="ai-grid">
+      <div class="ai-col">
+        <h3>Needs a key</h3>
+        <ul class="ticks ticks-key">
+          <li>Solutions in Questions, typed or from a photo</li>
+          <li>Reading photos of questions</li>
+          <li>Similar questions and LeetCode picks</li>
+          <li>Error Coach explanations and hints</li>
+          <li>Analyze, Visualize and Dry run</li>
+          <li>Efficiency and code quality scores in Practice</li>
+        </ul>
+      </div>
+      <div class="ai-col">
+        <h3>Works without a key</h3>
+        <ul class="ticks">
+          <li>Running code in all six languages</li>
+          <li>Compile errors on the exact line, and crash output</li>
+          <li>Notebook and notes</li>
+          <li>XP, streaks, skills and achievements</li>
+          <li>Submitting to hidden tests, once a question has them</li>
+          <li>HTML, CSS and JavaScript with live preview</li>
+        </ul>
+      </div>
+      <ol class="ai-steps">
+        <li><b>Get a key.</b> Open <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a>, sign in with a Google account and create an API key. It's free.</li>
+        <li><b>Paste it into ByteRush.</b> Open the <b>Settings</b> tab, paste the key and press <b>Test key</b>.</li>
+        <li><b>That's it.</b> The key is saved on your computer and used only to talk to Gemini.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section class="chapter ch-privacy" id="privacy" data-scene="field">
+    <div class="ch-head">
+      <p class="prompt mono" data-type>$ byterush --where-is-my-data</p>
+      <h2 data-split>What stays on your computer, and what goes online.</h2>
+    </div>
+    <div class="priv">
+      <div class="priv-col">
+        <h3><span class="dot dot-local"></span>Stays on your computer</h3>
+        <dl>
+          <div><dt>Your code, and running it</dt><dd>Programs compile and run on your own computer, not on a server.</dd></div>
+          <div><dt>Questions, notebook, notes and settings</dt><dd>Saved as files in the <code>ByteRush-Data</code> folder in your home folder.</dd></div>
+          <div><dt>XP, streaks and achievements</dt><dd>Kept in the app's own storage on your computer.</dd></div>
+          <div><dt>Your Gemini key</dt><dd>Saved in <code>ByteRush-Data/settings.json</code> and sent only to Google with AI requests.</dd></div>
+        </dl>
+      </div>
+      <div class="priv-col">
+        <h3><span class="dot dot-online"></span>Goes online, only when you use an AI feature</h3>
+        <dl>
+          <div><dt>What is sent</dt><dd>The question text or photo, and the code and error message you ask about. For Practice scores, your code.</dd></div>
+          <div><dt>Where it goes</dt><dd>Straight from ByteRush on your computer to Google's Gemini API, with your key. Google handles it under the <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener">Gemini API terms</a>.</dd></div>
+          <div><dt>Photos</dt><dd>Sent to be read into text. ByteRush doesn't save them.</dd></div>
+          <div><dt>Nothing else</dt><dd>No account, no sign-up and no analytics in the app.</dd></div>
+        </dl>
+      </div>
+    </div>
+    <p class="note">Two exceptions to know about: this website loads its fonts from Google Fonts and its release details from GitHub. And in the online demo, your code runs on the demo server and anything saved there is temporary.</p>
+  </section>
+
   <!-- LANGUAGES -->
   <section class="chapter ch-languages" id="languages" data-scene="glyph:{ }" data-scene-x="-6.4" data-scene-y="-0.6" data-scene-scale="0.5">
     <div class="ch-head">
       <p class="prompt mono" data-type>$ byterush --lang</p>
       <h2 data-split>Pick your language.</h2>
-      <p class="lede" data-reveal>Each language keeps its own history, notebook and notes. Questions and practice tests are written in the language you choose.</p>
+      <p class="lede" data-reveal>Each language keeps its own history, notebook and notes. Questions and practice tests are written in the language you choose. Java comes built in; Python, C and C++ use the tools installed on your computer.</p>
     </div>
     <div class="langs" role="tablist" aria-label="Supported languages">
       <button role="tab" aria-selected="true" data-lang="java" data-glyph="Java" data-shot="media/playground-run.webp" data-alt="Java: a Fibonacci program printing 0 1 1 2 3 5 8 13 21 34 55 89">Java</button>
       <button role="tab" aria-selected="false" data-lang="python" data-glyph="py" data-shot="media/lang-python.webp" data-alt="Python: a prime-number program printing the primes below 50">Python</button>
-      <button role="tab" aria-selected="false" data-lang="c" data-glyph="C" data-shot="media/lang-c.webp" data-alt="C: a factorial program printing 10! = 3628800">C</button>
+      <button role="tab" aria-selected="false" data-lang="c" data-glyph="C" data-shot="media/lang-c.webp" data-alt="C: a Hello, ByteRush! program compiled and run, printing Hello, ByteRush! and Executed successfully">C</button>
       <button role="tab" aria-selected="false" data-lang="cpp" data-glyph="C++" data-shot="media/lang-cpp.webp" data-alt="C++: sorting a vector and printing the maximum, 88">C++</button>
       <button role="tab" aria-selected="false" data-lang="js" data-glyph="JS" data-shot="media/lang-js.webp" data-alt="The JavaScript playground with a console">JavaScript</button>
       <button role="tab" aria-selected="false" data-lang="web" data-glyph="</>" data-shot="media/lang-web.webp" data-alt="The HTML, CSS and JS playground with a live preview of a card and a button clicked 3 times">HTML &amp; CSS</button>
@@ -311,7 +411,34 @@
     <div class="ch-head">
       <p class="prompt mono" data-type>$ byterush --try</p>
       <h2 data-split>Try it right here.</h2>
-      <p class="lede" data-reveal>This is the real ByteRush, running on a small free server. It's slower than the app, and it can take up to a minute to wake up the first time. Add your own free Gemini key in its Settings to try the AI features.</p>
+      <p class="lede" data-reveal>Two ways: a small JavaScript editor that runs instantly in this page, or the full ByteRush app running on a free server.</p>
+    </div>
+    <div class="pg" data-pg>
+      <div class="pg-head">
+        <h3>Instant: JavaScript in your browser</h3>
+        <p class="dim">This really runs your code, in a sandboxed worker inside this page. Edit it, press Run, then add a bug to see how errors are reported.</p>
+      </div>
+      <div class="pg-body">
+        <div class="pg-editor">
+          <div class="pg-gutter mono" aria-hidden="true"></div>
+          <div class="pg-hl" aria-hidden="true"></div>
+          <textarea class="mono" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="JavaScript code"></textarea>
+        </div>
+        <div class="pg-side">
+          <div class="pg-actions">
+            <button class="btn btn-small" type="button" data-pg-run><span>▶ Run</span></button>
+            <button class="pg-btn mono" type="button" data-pg-bug>add a bug</button>
+            <button class="pg-btn mono" type="button" data-pg-reset>reset</button>
+          </div>
+          <div class="pg-out mono" role="log" aria-live="polite" aria-label="Console output"><span class="dim">Press Run (or Ctrl/⌘ + Enter) to see the output here.</span></div>
+          <div class="pg-explain" hidden></div>
+        </div>
+      </div>
+      <p class="note">This page explains common errors with simple built-in rules. In the app, the Error Coach uses AI to explain your exact error, step by step.</p>
+    </div>
+    <div class="demo-intro">
+      <h3>The full app, live</h3>
+      <p class="dim">This is the real ByteRush on a small free server. It's slower than the desktop app and can take up to a minute to wake up. To try the AI features, add your own Gemini key in its Settings.</p>
     </div>
     <div class="demo-frame" data-demo>
       <div class="frame-bar"><i></i><i></i><i></i><span class="mono">byterush.onrender.com</span><a class="demo-newtab mono" href="https://byterush.onrender.com" target="_blank" rel="noopener">open in a new tab</a></div>
@@ -333,25 +460,51 @@
     </div>
     <div class="platforms">
       <a class="platform" id="dl-mac-arm64" href="#" data-magnetic-soft>
-        <span class="pf-os">macOS</span><span class="pf-chip">Apple Silicon</span><span class="pf-note mono">M1, M2, M3, M4 and newer</span>
+        <span class="pf-os">macOS</span><span class="pf-chip">Apple Silicon</span><span class="pf-note mono">M1 and newer (arm64)<br>macOS 12 Monterey or later</span>
         <span class="pf-file mono" data-file="ByteRush-mac-arm64.dmg">.dmg</span><span class="pf-tag mono">your computer</span>
       </a>
       <a class="platform" id="dl-mac-x64" href="#" data-magnetic-soft>
-        <span class="pf-os">macOS</span><span class="pf-chip">Intel</span><span class="pf-note mono">Older Intel Macs</span>
+        <span class="pf-os">macOS</span><span class="pf-chip">Intel</span><span class="pf-note mono">Intel Macs (x64)<br>macOS 12 Monterey or later</span>
         <span class="pf-file mono" data-file="ByteRush-mac-x64.dmg">.dmg</span><span class="pf-tag mono">your computer</span>
       </a>
       <a class="platform" id="dl-win" href="#" data-magnetic-soft>
-        <span class="pf-os">Windows</span><span class="pf-chip">10 and 11, 64-bit</span><span class="pf-note mono">Installer</span>
+        <span class="pf-os">Windows</span><span class="pf-chip">10 and 11</span><span class="pf-note mono">64-bit (x64)<br>Installer, no admin needed</span>
         <span class="pf-file mono" data-file="ByteRush-windows-x64.exe">.exe</span><span class="pf-tag mono">your computer</span>
       </a>
     </div>
     <p class="note">Not sure which Mac you have? Open the Apple menu and choose <b>About This Mac</b>. If it says “Chip: Apple M…”, choose Apple Silicon.</p>
+    <div class="facts-block">
+      <div class="rel-facts">
+        <div><span class="dim mono">version</span><b id="rf-version">see GitHub</b></div>
+        <div><span class="dim mono">released</span><b id="rf-date">see GitHub</b></div>
+        <div><span class="dim mono">price</span><b>Free</b></div>
+        <div><span class="dim mono">source code</span><b><a href="https://github.com/bondyhitesh03/byteRush" target="_blank" rel="noopener">Public on GitHub</a></b></div>
+      </div>
+      <details class="sums">
+        <summary>Check your download (SHA-256)</summary>
+        <p class="dim">GitHub publishes a fingerprint for every file. If the one you calculate matches, your file is exactly the one released here.</p>
+        <ul class="sum-list mono" id="sum-list"><li class="dim">Loading from GitHub…</li></ul>
+        <p class="dim">On a Mac, open Terminal and run <code>shasum -a 256 ~/Downloads/ByteRush-mac-arm64.dmg</code>. On Windows, open PowerShell and run <code>Get-FileHash $HOME\Downloads\ByteRush-windows-x64.exe</code>.</p>
+      </details>
+      <div class="changelog">
+        <h3>What's new</h3>
+        <ol class="log" id="changelog">
+          <li><b>1.0.2</b><span>AI requests no longer stall when Google's main model is overloaded: a request that hangs is skipped after 45 seconds and ByteRush tries newer backup models. Removed backup models Google no longer offers to new users.</span></li>
+          <li><b>1.0.1</b><span>The code editor is now built into the app, so it works fully offline. Before, it loaded from the internet.</span></li>
+          <li><b>1.0.0</b><span>First desktop release for macOS (Apple Silicon and Intel) and Windows, in its own window, with Java built in.</span></li>
+        </ol>
+        <a class="link-quiet" href="https://github.com/bondyhitesh03/byteRush/releases" target="_blank" rel="noopener">All releases on GitHub</a>
+      </div>
+    </div>
   </section>
 
   <!-- INSTALL -->
   <section class="chapter ch-install" id="install" data-scene="field">
     <h2 data-split>Install in a minute.</h2>
-    <p class="lede" data-reveal>ByteRush is free and not sold through an app store, so your computer asks you to confirm it once.</p>
+    <div class="why-warn" data-reveal>
+      <h3>Why you'll see a warning</h3>
+      <p>ByteRush is a free project. It isn't signed with an Apple Developer ID or notarized by Apple, and the Windows installer isn't code-signed, because those certificates are paid. So the first time you open it, macOS or Windows asks you to confirm. The steps below approve ByteRush only; they don't turn off any security protection. Download ByteRush only from this page or its GitHub releases page, and check the fingerprint above if you want to be sure.</p>
+    </div>
     <div class="tabs" role="tablist" aria-label="Your computer">
       <button role="tab" id="t-mac" aria-selected="true" aria-controls="p-mac">Mac</button>
       <button role="tab" id="t-win" aria-selected="false" aria-controls="p-win">Windows</button>
@@ -359,16 +512,16 @@
     <div class="steps" id="p-mac" role="tabpanel" aria-labelledby="t-mac">
       <ol>
         <li>Open the downloaded <code>ByteRush-mac-….dmg</code> and drag <b>ByteRush</b> into <b>Applications</b>.</li>
-        <li>Open ByteRush from Applications. macOS says it “could not verify” the app. Click <b>Done</b>.</li>
-        <li>Open <b>System Settings → Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b> next to ByteRush, then confirm.</li>
-        <li>That's it. From now on ByteRush opens with a normal double-click.</li>
+        <li>Open ByteRush from Applications. macOS says Apple “could not verify” it, because it isn't notarized. Click <b>Done</b>.</li>
+        <li>Open <b>System Settings → Privacy &amp; Security</b>, scroll down to the message about ByteRush and click <b>Open Anyway</b>, then confirm with your password or Touch ID.</li>
+        <li>That's it. From now on ByteRush opens with a normal double-click. You never need to change other security settings.</li>
       </ol>
       <p class="note">Python, C and C++ use Apple's free developer tools. If ByteRush says they're missing, open Terminal and run <code>xcode-select --install</code>. Java is already included.</p>
     </div>
     <div class="steps" id="p-win" role="tabpanel" aria-labelledby="t-win" hidden>
       <ol>
         <li>Run the downloaded <code>ByteRush-windows-x64.exe</code>.</li>
-        <li>If Windows shows “Windows protected your PC”, click <b>More info</b> → <b>Run anyway</b>.</li>
+        <li>Windows SmartScreen may say “Windows protected your PC”, because the installer isn't code-signed. Click <b>More info</b>, check the app name says ByteRush, then click <b>Run anyway</b>.</li>
         <li>Follow the installer. ByteRush appears on your Desktop and in the Start menu.</li>
       </ol>
       <p class="note">Java is already included. For Python, install it from <a href="https://www.python.org/downloads/">python.org</a> (tick “Add to PATH”). For C and C++, install <a href="https://winlibs.com/">WinLibs (gcc)</a>. Restart ByteRush afterwards.</p>
@@ -377,6 +530,26 @@
       <h3>Just want a quick look?</h3>
       <p>Try ByteRush in your browser first. It's slower than the app because it runs on a small free server, and it may take up to a minute to wake up.</p>
       <a class="link-quiet" href="#demo">Try the live demo on this page</a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="chapter ch-faq" id="faq" data-scene="field">
+    <div class="ch-head">
+      <p class="prompt mono" data-type>$ byterush --help</p>
+      <h2 data-split>Questions, answered.</h2>
+    </div>
+    <div class="faq">
+      <details><summary>Is ByteRush free?</summary><p>Yes. The app is free to download and use, with no account. The AI features use your own free Gemini key from Google, which has daily limits on Google's free tier.</p></details>
+      <details><summary>Does it work offline?</summary><p>Yes, for running code, the notebook, notes and your progress. Java is built in. Python, C and C++ use the tools installed on your computer (on a Mac, Apple's free developer tools). The AI features need internet.</p></details>
+      <details><summary>Why do I need a Gemini API key?</summary><p>The AI features (solutions, photo reading, the Error Coach, analysis and scores) are answered by Google's Gemini, and ByteRush doesn't run an AI server of its own. Each person uses their own free key. <a href="#ai">How to get one</a>.</p></details>
+      <details><summary>Where is my code stored?</summary><p>On your computer. Questions, the notebook, notes and settings are files in the <code>ByteRush-Data</code> folder in your home folder. XP and streaks are in the app's own storage on your computer.</p></details>
+      <details><summary>Does ByteRush upload my code?</summary><p>Not to run it: programs run on your computer. When you use an AI feature, the question, the code and the error you ask about are sent to Google's Gemini API with your key. <a href="#privacy">What's sent, and when</a>.</p></details>
+      <details><summary>Which programming languages are supported?</summary><p>Java, Python, C, C++, JavaScript, and HTML with CSS and JavaScript (with a live preview).</p></details>
+      <details><summary>Does it support Windows and macOS?</summary><p>Yes: Windows 10 and 11 (64-bit), and macOS 12 Monterey or later on both Apple Silicon and Intel Macs.</p></details>
+      <details><summary>How do I install ByteRush?</summary><p>Download the file for your computer above and follow the <a href="#install">install steps</a>. Because the app isn't signed yet, you confirm it once the first time.</p></details>
+      <details><summary>How do I uninstall it?</summary><p>On a Mac, drag ByteRush from Applications to the Trash. On Windows, open Settings → Apps → Installed apps, find ByteRush and choose Uninstall. Your saved work stays in the <code>ByteRush-Data</code> folder in your home folder, and XP and streaks stay in the app's storage (<code>~/Library/Application Support/ByteRush</code> on a Mac, <code>%APPDATA%\ByteRush</code> on Windows). Delete those too if you want to remove everything.</p></details>
+      <details><summary>How often is it updated?</summary><p>There's no fixed schedule, and the app doesn't update itself. New versions appear on this page and on GitHub; download the new one and install it over the old one. Your work in <code>ByteRush-Data</code> is kept.</p></details>
     </div>
   </section>
 
@@ -389,7 +562,7 @@
 
 <footer class="foot">
   <span>Made by Hitesh</span>
-  <span>Your data stays on your computer, in the <code>ByteRush-Data</code> folder.</span>
+  <span>Your work is saved on your computer in <code>ByteRush-Data</code>. AI features send your request to Google. <a href="#privacy">Privacy details</a></span>
 </footer>
 
 <dialog class="lightbox" id="lightbox" aria-label="Screenshot preview">
